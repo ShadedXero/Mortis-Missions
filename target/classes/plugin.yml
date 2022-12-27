@@ -1,0 +1,12 @@
+name: MortisMissions
+version: '1.0'
+main: me.none030.mortismissions.MortisMissions
+api-version: 1.13
+softdepend:
+  - CrackShot
+  - MythicMobs
+  - QualityArmoryVehicles
+commands:
+  missions:
+    aliases:
+      - mission
