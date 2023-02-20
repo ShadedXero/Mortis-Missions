@@ -52,19 +52,19 @@ public class Mission {
     }
 
     public boolean hasRequirement(String weaponTitle) {
-        return weaponTitle.equalsIgnoreCase(requirements.getWeaponTitle());
+        return requirements.getWeaponTitles().contains(weaponTitle);
     }
 
     public boolean hasRequirement(Material material) {
-        return material.equals(requirements.getMaterial());
+        return requirements.getMaterials().contains(material);
     }
 
     public boolean hasRequirement(EntityType entity) {
-        return entity.equals(requirements.getEntity());
+        return requirements.getEntities().contains(entity);
     }
 
     public boolean hasRequirement(MythicMob mythicMob) {
-        return mythicMob.equals(requirements.getMythicMob());
+        return requirements.getMythicMobs().contains(mythicMob);
     }
 
     public boolean Check(Player player, ItemStack item) {
@@ -103,9 +103,8 @@ public class Mission {
     }
 
     private ItemStack createMission(int amount) {
-        ItemStack item = new ItemStack(mission.getType(), mission.getAmount());
-        ItemMeta meta = mission.getItemMeta();
-        item.setItemMeta(meta);
+        ItemStack item = mission.clone();
+        ItemMeta meta = item.getItemMeta();
         if (meta.getLore() != null) {
             List<String> lore = meta.getLore();
             lore.replaceAll(s -> s.replace("%amount%", String.valueOf(amount)).replace("%progress%", "0"));

@@ -9,8 +9,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import static me.none030.mortismissions.missions.MissionMessages.*;
 import static me.none030.mortismissions.utils.MessageUtils.colorMessage;
@@ -76,11 +76,11 @@ public class MissionCommand implements TabExecutor {
                 sender.sendMessage(TARGET_NOT_FOUND);
                 return false;
             }
-            List<String> categories = manager.getCategories();
-            Collections.shuffle(categories);
-            List<String> ids = new ArrayList<>(manager.getMissionIdsByCategory().get(categories.get(0)));
-            Collections.shuffle(ids);
-            Mission mission = manager.getMissionById().get(ids.get(0));
+            String category = manager.getCategories().getRandom();
+            List<String> ids = new ArrayList<>(manager.getMissionIdsByCategory().get(category));
+            Random random = new Random();
+            int number = random.nextInt(0, ids.size() - 1);
+            Mission mission = manager.getMissionById().get(ids.get(number));
             if (mission == null) {
                 sender.sendMessage(MISSION_NOT_FOUND);
                 return false;

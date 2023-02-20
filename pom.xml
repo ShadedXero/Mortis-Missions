@@ -23,8 +23,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>9</source>
+                    <target>9</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -86,14 +86,14 @@
             <artifactId>crackshot</artifactId>
             <version>0.98.11</version>
             <scope>system</scope>
-            <systemPath>C:/Users/muham/Desktop/CrackShot.jar</systemPath>
+            <systemPath>C:/Users/7th Genration/Downloads/CrackShot.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.zombie_striker</groupId>
             <artifactId>qav</artifactId>
             <version>0.98.11</version>
             <scope>system</scope>
-            <systemPath>C:/Users/muham/Desktop/QualityArmoryVehicles.jar</systemPath>
+            <systemPath>C:/Users/7th Genration/Downloads/QualityArmoryVehicles.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

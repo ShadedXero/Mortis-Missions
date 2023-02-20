@@ -1,20 +1,18 @@
 package me.none030.mortismissions.config;
 
-import io.lumine.mythic.api.mobs.MythicMob;
-import io.lumine.mythic.bukkit.MythicBukkit;
 import me.none030.mortismissions.MortisMissions;
 import me.none030.mortismissions.missions.Mission;
 import me.none030.mortismissions.missions.MissionManager;
 import me.none030.mortismissions.utils.ItemBuilder;
 import me.none030.mortismissions.utils.MissionType;
 import me.none030.mortismissions.utils.Requirement;
+import me.none030.mortismissions.utils.RequirementType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
@@ -52,7 +50,8 @@ public class ConfigManager {
             return;
         }
         for (String category : categorySection.getKeys(false)) {
-            manager.getCategories().add(category);
+            double chance = categorySection.getDouble(category + ".chance");
+            manager.getCategories().addEntry(category, chance);
             manager.getMissionIdsByCategory().put(category, new ArrayList<>());
             manager.getChancesByCategory().put(category, categorySection.getInt(category));
         }
@@ -69,22 +68,19 @@ public class ConfigManager {
             manager.getMissionIdsByCategory().get(category).add(key);
             MissionType type = MissionType.valueOf(section.getString("type"));
             Requirement requirement = null;
-            if (section.contains("object")) {
+            if (section.contains("objects")) {
+                List<String> objects = new ArrayList<>(section.getStringList("objects"));
                 if (!type.equals(MissionType.KILL) && !type.equals(MissionType.KILL_MYTHIC) && !type.equals(MissionType.DAMAGE_CRACKSHOT) && !type.equals(MissionType.RIDE)) {
-                    Material material = Material.valueOf(section.getString("object"));
-                    requirement = new Requirement(material);
+                    requirement = new Requirement(objects, RequirementType.MATERIAL);
                 } else {
                     if (type.equals(MissionType.KILL) || type.equals(MissionType.RIDE)) {
-                        EntityType entity = EntityType.valueOf(section.getString("object"));
-                        requirement = new Requirement(entity);
+                        requirement = new Requirement(objects, RequirementType.ENTITY);
                     }
                     if (type.equals(MissionType.KILL_MYTHIC)) {
-                        MythicMob mob = MythicBukkit.inst().getMobManager().getMythicMob(section.getString("object")).orElse(null);
-                        requirement = new Requirement(mob);
+                        requirement = new Requirement(objects, RequirementType.MYTHIC_MOB);
                     }
                     if (type.equals(MissionType.DAMAGE_CRACKSHOT)) {
-                        String weaponTitle = section.getString("object");
-                        requirement = new Requirement(weaponTitle);
+                        requirement = new Requirement(objects, RequirementType.WEAPON);
                     }
                 }
             }
@@ -92,11 +88,15 @@ public class ConfigManager {
             int max = section.getInt("max-requirement");
             String title = colorMessage(section.getString("title"));
             String material = section.getString("material");
+            ItemBuilder builder = new ItemBuilder(Material.valueOf(material), 1);
             String name = colorMessage(section.getString("name"));
+            builder.setName(name);
             List<String> lore = section.getStringList("lore");
-            lore.forEach(s -> lore.set(lore.indexOf(s), colorMessage(s)));
-            ItemBuilder builder = new ItemBuilder(material, 1, name, lore, null, null);
-            ItemStack item = builder.Build();
+            builder.setLore(lore);
+            if (section.contains("custom-model-data")) {
+                int data = section.getInt("custom-model-data");
+                builder.setCustomModelData(data);
+            }
             List<String> rewards = section.getStringList("rewards");
             List<World> worlds = new ArrayList<>();
             for (String worldName : section.getStringList("enabled-worlds")) {
@@ -106,7 +106,7 @@ public class ConfigManager {
                 }
                 worlds.add(world);
             }
-            Mission mission = new Mission(key, title, type, item, requirement, min, max, worlds, rewards);
+            Mission mission = new Mission(key, title, type, builder.getItem(), requirement, min, max, worlds, rewards);
             manager.getMissions().add(mission);
             manager.getMissionById().put(key, mission);
         }

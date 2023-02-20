@@ -1,6 +1,9 @@
 package me.none030.mortismissions.utils;
 
+import me.none030.mortismissions.MortisMissions;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -12,56 +15,83 @@ import java.util.List;
 
 public class ItemBuilder {
 
-    private final Material material;
-    private final int amount;
-    private final String name;
-    private final List<String> lore;
-    private final HashMap<Enchantment, Integer> enchants;
-    private final List<ItemFlag> flags;
+    private final MortisMissions plugin = MortisMissions.getInstance();
+    private ItemStack item;
 
-    public ItemBuilder(String material, int amount, String name, List<String> lore, List<String> enchants, List<String> flags) {
-        this.material = Material.valueOf(material);
-        this.amount = amount;
-        this.name = name;
-        this.lore = lore;
-        this.enchants = new HashMap<>();
-        if (enchants != null) {
-            for (String enchant : enchants) {
-                String[] raw = enchant.split(":");
-                this.enchants.put(Enchantment.getByName(raw[0]), Integer.parseInt(raw[1]));
-            }
-        }
-        this.flags = new ArrayList<>();
-        if (flags != null) {
-            for (String flag : flags) {
-                this.flags.add(ItemFlag.valueOf(flag));
-            }
-        }
+    public ItemBuilder(Material material, int amount) {
+        setItem(new ItemStack(material, amount));
     }
 
-    public ItemStack Build() {
-        if (material == null|| amount == 0) {
-            return null;
-        }
-        ItemStack item = new ItemStack(material, amount);
+    public void setCustomModelData(int customModelData) {
         ItemMeta meta = item.getItemMeta();
-        if (name != null) {
-            meta.setDisplayName(name);
+        meta.setCustomModelData(customModelData);
+        item.setItemMeta(meta);
+    }
+
+    public void setName(String name) {
+        ItemMeta meta = item.getItemMeta();
+        MessageEditor editor = new MessageEditor(name);
+        editor.color();
+        meta.displayName(Component.text(editor.getMessage()));
+        item.setItemMeta(meta);
+    }
+
+    public void setLore(List<String> lore) {
+        ItemMeta meta = item.getItemMeta();
+        List<Component> components = new ArrayList<>();
+        for (String line : lore) {
+            MessageEditor editor = new MessageEditor(line);
+            editor.color();
+            components.add(Component.text(editor.getMessage()));
         }
-        if (lore != null) {
-            meta.setLore(lore);
-        }
-        if (enchants != null) {
-            for (Enchantment enchant : enchants.keySet()) {
-                meta.addEnchant(enchant, enchants.get(enchant), true);
-            }
-        }
-        if (flags != null) {
-            for (ItemFlag flag : flags) {
-                meta.addItemFlags(flag);
-            }
+        meta.lore(components);
+        item.setItemMeta(meta);
+    }
+
+    public void setEnchants(List<String> enchants) {
+        HashMap<Enchantment, Integer> enchantments = convertEnchants(enchants);
+        ItemMeta meta = item.getItemMeta();
+        for (Enchantment enchant : enchantments.keySet()) {
+            int level = enchantments.get(enchant);
+            meta.addEnchant(enchant, level, true);
         }
         item.setItemMeta(meta);
+    }
+
+    public void setFlags(List<String> flags) {
+        ItemMeta meta = item.getItemMeta();
+        for (String rawFlag : flags) {
+            ItemFlag flag;
+            try {
+                flag = ItemFlag.valueOf(rawFlag);
+            }catch (IllegalArgumentException exp) {
+                continue;
+            }
+            meta.addItemFlags(flag);
+        }
+        item.setItemMeta(meta);
+    }
+
+    private HashMap<Enchantment, Integer> convertEnchants(List<String> enchants) {
+        HashMap<Enchantment, Integer> enchantments = new HashMap<>();
+        for (String line : enchants) {
+            String[] raw = line.split(":");
+            NamespacedKey key = new NamespacedKey(plugin, raw[0]);
+            Enchantment enchant = Enchantment.getByKey(key);
+            int level = Integer.parseInt(raw[1]);
+            if (enchant == null) {
+                continue;
+            }
+            enchantments.put(enchant, level);
+        }
+        return enchantments;
+    }
+
+    public ItemStack getItem() {
         return item;
+    }
+
+    private void setItem(ItemStack item) {
+        this.item = item;
     }
 }

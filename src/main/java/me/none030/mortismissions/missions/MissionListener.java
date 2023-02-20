@@ -273,10 +273,10 @@ public class MissionListener implements Listener {
             return;
         }
         Requirement requirement = mission.getRequirements();
-        if (!player.getInventory().contains(requirement.getMaterial())) {
+        if (!player.getInventory().contains(requirement.getMaterials().get(0))) {
             return;
         }
-        mission.collect(player, item, requirement.getMaterial());
+        mission.collect(player, item, requirement.getMaterials().get(0));
     }
 
     @EventHandler

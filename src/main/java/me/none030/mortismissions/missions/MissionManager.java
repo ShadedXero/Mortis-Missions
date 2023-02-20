@@ -2,6 +2,7 @@ package me.none030.mortismissions.missions;
 
 import me.none030.mortismissions.MortisMissions;
 import me.none030.mortismissions.config.ConfigManager;
+import me.none030.mortismissions.utils.ChanceContainer;
 import me.none030.mortismissions.utils.MissionData;
 import me.none030.mortismissions.utils.MissionItem;
 import me.none030.mortismissions.utils.MissionType;
@@ -23,14 +24,14 @@ public class MissionManager {
 
     private ConfigManager configManager;
     private List<Mission> missions;
-    private List<String> categories;
+    private ChanceContainer<String> categories;
     private HashMap<String, List<String>> missionIdsByCategory;
     private HashMap<String, Mission> missionById;
     private HashMap<String, Integer> chancesByCategory;
 
     public MissionManager() {
         missions = new ArrayList<>();
-        categories = new ArrayList<>();
+        categories = new ChanceContainer<>();
         missionIdsByCategory = new HashMap<>();
         missionById = new HashMap<>();
         chancesByCategory = new HashMap<>();
@@ -51,7 +52,7 @@ public class MissionManager {
 
     public void reload() {
         missions = new ArrayList<>();
-        categories = new ArrayList<>();
+        categories = new ChanceContainer<>();
         missionIdsByCategory = new HashMap<>();
         missionById = new HashMap<>();
         chancesByCategory = new HashMap<>();
@@ -119,7 +120,7 @@ public class MissionManager {
         return missions;
     }
 
-    public List<String> getCategories() {
+    public ChanceContainer<String> getCategories() {
         return categories;
     }
 

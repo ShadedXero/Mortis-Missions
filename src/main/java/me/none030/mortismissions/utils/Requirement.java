@@ -1,46 +1,75 @@
 package me.none030.mortismissions.utils;
 
 import io.lumine.mythic.api.mobs.MythicMob;
-import me.zombie_striker.qg.exp.cars.VehicleEntity;
-import me.zombie_striker.qg.exp.cars.api.QualityArmoryVehicles;
+import io.lumine.mythic.bukkit.MythicBukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Requirement {
-    private Material material;
-    private EntityType entity;
-    private MythicMob mythicMob;
-    private String weaponTitle;
+    private List<Material> materials;
+    private List<EntityType> entities;
+    private List<MythicMob> mythicMobs;
+    private List<String> weaponTitles;
 
-    public Requirement(Material material) {
-        this.material = material;
+    public Requirement(List<String> objects, RequirementType type) {
+        if (type.equals(RequirementType.MATERIAL)) {
+            List<Material> materials = new ArrayList<>();
+            for (String object : objects) {
+                Material material;
+                try {
+                    material = Material.valueOf(object);
+                }catch (IllegalArgumentException exp) {
+                    continue;
+                }
+                materials.add(material);
+            }
+            this.materials = materials;
+        }
+        if (type.equals(RequirementType.ENTITY)) {
+            List<EntityType> entities = new ArrayList<>();
+            for (String object : objects) {
+                EntityType entity;
+                try {
+                    entity = EntityType.valueOf(object);
+                }catch (IllegalArgumentException exp) {
+                    continue;
+                }
+                entities.add(entity);
+            }
+            this.entities = entities;
+        }
+        if (type.equals(RequirementType.MYTHIC_MOB)) {
+            List<MythicMob> mythicMobs = new ArrayList<>();
+            for (String object : objects) {
+                MythicMob mob = MythicBukkit.inst().getMobManager().getMythicMob(object).orElse(null);
+                if (mob == null) {
+                    continue;
+                }
+                mythicMobs.add(mob);
+            }
+            this.mythicMobs = mythicMobs;
+        }
+        if (type.equals(RequirementType.WEAPON)) {
+            this.weaponTitles = objects;
+        }
     }
 
-    public Requirement(EntityType entity) {
-        this.entity = entity;
+    public List<Material> getMaterials() {
+        return materials;
     }
 
-    public Requirement(MythicMob mythicMob) {
-        this.mythicMob = mythicMob;
+    public List<EntityType> getEntities() {
+        return entities;
     }
 
-    public Requirement(String weaponTitle) {
-        this.weaponTitle = weaponTitle;
+    public List<MythicMob> getMythicMobs() {
+        return mythicMobs;
     }
 
-    public Material getMaterial() {
-        return material;
-    }
-
-    public EntityType getEntity() {
-        return entity;
-    }
-
-    public MythicMob getMythicMob() {
-        return mythicMob;
-    }
-
-    public String getWeaponTitle() {
-        return weaponTitle;
+    public List<String> getWeaponTitles() {
+        return weaponTitles;
     }
 }
