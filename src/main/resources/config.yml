@@ -1,10 +1,13 @@
 messages:
   no-permission: "&cYou don't have permission to use this"
-  target-not-found: "&cPlease enter a valid target"
-  mission-not-found: "&cPlease enter a valid mission"
+  invalid-target: "&cPlease enter a valid target"
+  invalid-mission: "&cPlease enter a valid mission"
   mission-complete-title: "&c&lMission Complete!"
   mission-complete-subtitle: "&fCompleted %mission_name%"
   mission-received: "&a&lMission Received!"
+  reloaded: "&aMortis Missions Reloaded"
+  give-usage: "&cUsage: /missions give <player_name> <mission-id>"
+  random-usage: "&cUsage: /missions random <player_name>"
 
 # Mission Types
 # COLLECT - requires material type objects
@@ -23,6 +26,16 @@ messages:
 # KILL_MYTHIC
 # KILL - requires entity type objects
 # RIDE_QAV
+# TAME - requires entity type objects
+# INTERACT_ENTITY - requires entity type objects
+# HORSE_JUMP
+# EXP_GAIN
+# DEATH
+# BUCKET_FILL - requires material type objects
+# BUCKET_EMPTY - requires material type objects
+# BREED - requires entity type objects
+# DAMAGE_WM
+# BREWERY
 
 categories:
   EASY: 50
@@ -30,352 +43,583 @@ categories:
   HARD: 20
 
 missions:
-    COLLECTING_COBBLE_MISSION:
-      title: "&aCollector"
-      category: EASY
-      type: COLLECT
-      min-requirement: 100
-      max-requirement: 150
-      objects:
-        - COBBLESTONE
-      material: PAPER
-      name: "&a&lEasy Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eCollect %amount% Cobblestone: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    COLLECTING_SAND_MISSION:
-      title: "&aCollector"
-      category: EASY
-      type: COLLECT
-      min-requirement: 100
-      max-requirement: 150
-      objects:
-        - SAND
-      material: PAPER
-      name: "&a&lEasy Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eCollect %amount% Cobblestone: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    SWIMMING_MISSION:
-      title: "&aSwimmer"
-      category: EASY
-      type: SWIM
-      min-requirement: 200
-      max-requirement: 300
-      material: PAPER
-      name: "&a&lEasy Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eSwim %amount% blocks: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    WALKING_MISSION:
-      title: "&aWalker"
-      category: EASY
-      type: WALK
-      min-requirement: 200
-      max-requirement: 300
-      material: PAPER
-      name: "&a&lEasy Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eWalk %amount% blocks: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    BREAK_MISSION:
-      title: "&aBreaker"
-      category: EASY
-      type: BREAK
-      min-requirement: 20
-      max-requirement: 30
-      objects:
-        - OAK_LOG
-        - BIRCH_LOG
-        - ACACIA_LOG
-      material: PAPER
-      name: "&a&lEasy Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eBreak %amount% Logs: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    PLACE_MISSION:
-      title: "&aPlacer"
-      category: EASY
-      type: PLACE
-      min-requirement: 20
-      max-requirement: 30
-      objects:
-        - IRON_BLOCK
-      material: PAPER
-      name: "&a&lEasy Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &ePlace %amount% Iron Blocks: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    CRAFT_MISSION:
-      title: "&aCrafter"
-      category: EASY
-      type: CRAFT
-      min-requirement: 3
-      max-requirement: 5
-      objects:
-        - CAKE
-      material: PAPER
-      name: "&a&lEasy Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eCraft %amount% Cakes: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    ENCHANT_MISSION:
-      title: "&aEnchanter"
-      category: NORMAL
-      type: ENCHANT
-      min-requirement: 5
-      max-requirement: 15
-      objects:
-        - IRON_PICKAXE
-      material: PAPER
-      name: "&a&lNormal Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eEnchant %amount% Iron Pickaxes: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    FISH_MISSION:
-      title: "&aFisher"
-      category: HARD
-      type: FISH
-      min-requirement: 3
-      max-requirement: 5
-      objects:
-        - COD
-      material: PAPER
-      name: "&a&lHard Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eFish %amount% Cods: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    HARVEST_MISSION:
-      title: "&aHarvester"
-      category: EASY
-      type: HARVEST
-      min-requirement: 100
-      max-requirement: 150
-      objects:
-        - WHEAT
-      material: PAPER
-      name: "&a&lEasy Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eCraft %amount% Cakes: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    GLIDE_MISSION:
-      title: "&aGlider"
-      category: EASY
-      type: GLIDE
-      min-requirement: 200
-      max-requirement: 300
-      material: PAPER
-      name: "&a&lEasy Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eGlide %amount% blocks: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    SHEAR_MISSION:
-      title: "&aShearer"
-      category: NORMAL
-      type: SHEAR
-      min-requirement: 5
-      max-requirement: 7
-      material: PAPER
-      name: "&a&lNormal Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eShear %amount% sheep: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    RIDE_MISSION:
-      title: "&aRider"
-      category: NORMAL
-      type: RIDE
-      min-requirement: 100
-      max-requirement: 200
-      objects:
-        - HORSE
-      material: PAPER
-      name: "&a&lNormal Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eRide horse %amount% blocks: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    KILL_MISSION:
-      title: "&aKiller"
-      category: NORMAL
-      type: KILL
-      min-requirement: 3
-      max-requirement: 5
-      objects:
-        - COW
-      material: PAPER
-      name: "&a&lNormal Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eKill %amount% cows: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    KILL_MYTHIC_MISSION:
-      title: "&aMythic Killer"
-      category: HARD
-      type: KILL_MYTHIC
-      min-requirement: 3
-      max-requirement: 5
-      objects:
-        - SkeletalKnight
-      material: PAPER
-      name: "&a&lHard Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eKill %amount% SkeletalKnights: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    DAMAGE_CRACKSHOT_MISSION:
-      title: "&aDamager"
-      category: HARD
-      type: DAMAGE_CRACKSHOT
-      min-requirement: 50
-      max-requirement: 100
-      objects:
-        - AK-47
-      material: PAPER
-      name: "&a&lHard Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eDamage %amount% using AK-47: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
-    RIDE_QAV_MISSION:
-      title: "&aDamager"
-      category: HARD
-      type: RIDE_QAV
-      min-requirement: 50
-      max-requirement: 100
-      material: PAPER
-      name: "&a&lHard Mission"
-      lore:
-        - "&fComplete the mission to"
-        - "&fearn a reward."
-        - "&fRight click the item to advance."
-        - ""
-        - "&6&lObjective:"
-        - "&f■ &eRide %amount% using vehicles: %progress%"
-      rewards:
-        - "say You won! %player_name%"
-      disabled-worlds:
-        - world
+  COLLECTING_COBBLE_MISSION:
+    title: "&aCollector"
+    category: EASY
+    type: COLLECT
+    min-requirement: 100
+    max-requirement: 150
+    objects:
+      - COBBLESTONE
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eCollect %amount% Cobblestone: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  COLLECTING_SAND_MISSION:
+    title: "&aCollector"
+    category: EASY
+    type: COLLECT
+    min-requirement: 100
+    max-requirement: 150
+    objects:
+      - SAND
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eCollect %amount% Cobblestone: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  SWIMMING_MISSION:
+    title: "&aSwimmer"
+    category: EASY
+    type: SWIM
+    min-requirement: 200
+    max-requirement: 300
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eSwim %amount% blocks: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  WALKING_MISSION:
+    title: "&aWalker"
+    category: EASY
+    type: WALK
+    min-requirement: 200
+    max-requirement: 300
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eWalk %amount% blocks: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  BREAK_MISSION:
+    title: "&aBreaker"
+    category: EASY
+    type: BREAK
+    min-requirement: 20
+    max-requirement: 30
+    objects:
+      - OAK_LOG
+      - BIRCH_LOG
+      - ACACIA_LOG
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eBreak %amount% Logs: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  PLACE_MISSION:
+    title: "&aPlacer"
+    category: EASY
+    type: PLACE
+    min-requirement: 20
+    max-requirement: 30
+    objects:
+      - IRON_BLOCK
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &ePlace %amount% Iron Blocks: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  CRAFT_MISSION:
+    title: "&aCrafter"
+    category: EASY
+    type: CRAFT
+    min-requirement: 3
+    max-requirement: 5
+    objects:
+      - CAKE
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eCraft %amount% Cakes: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  ENCHANT_MISSION:
+    title: "&aEnchanter"
+    category: NORMAL
+    type: ENCHANT
+    min-requirement: 5
+    max-requirement: 15
+    objects:
+      - IRON_PICKAXE
+    material: PAPER
+    amount: 1
+    name: "&a&lNormal Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eEnchant %amount% Iron Pickaxes: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  FISH_MISSION:
+    title: "&aFisher"
+    category: HARD
+    type: FISH
+    min-requirement: 3
+    max-requirement: 5
+    objects:
+      - COD
+    material: PAPER
+    amount: 1
+    name: "&a&lHard Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eFish %amount% Cods: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  HARVEST_MISSION:
+    title: "&aHarvester"
+    category: EASY
+    type: HARVEST
+    min-requirement: 100
+    max-requirement: 150
+    objects:
+      - WHEAT
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eCraft %amount% Cakes: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  GLIDE_MISSION:
+    title: "&aGlider"
+    category: EASY
+    type: GLIDE
+    min-requirement: 200
+    max-requirement: 300
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eGlide %amount% blocks: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  SHEAR_MISSION:
+    title: "&aShearer"
+    category: NORMAL
+    type: SHEAR
+    min-requirement: 5
+    max-requirement: 7
+    material: PAPER
+    amount: 1
+    name: "&a&lNormal Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eShear %amount% sheep: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  RIDE_MISSION:
+    title: "&aRider"
+    category: NORMAL
+    type: RIDE
+    min-requirement: 100
+    max-requirement: 200
+    objects:
+      - HORSE
+    material: PAPER
+    amount: 1
+    name: "&a&lNormal Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eRide horse %amount% blocks: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  KILL_MISSION:
+    title: "&aKiller"
+    category: NORMAL
+    type: KILL
+    min-requirement: 3
+    max-requirement: 5
+    objects:
+      - COW
+    material: PAPER
+    amount: 1
+    name: "&a&lNormal Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eKill %amount% cows: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  KILL_MYTHIC_MISSION:
+    title: "&aMythic Killer"
+    category: HARD
+    type: KILL_MYTHIC
+    min-requirement: 3
+    max-requirement: 5
+    objects:
+      - SkeletalKnight
+    material: PAPER
+    amount: 1
+    name: "&a&lHard Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eKill %amount% SkeletalKnights: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  DAMAGE_CRACKSHOT_MISSION:
+    title: "&aDamager"
+    category: HARD
+    type: DAMAGE_CRACKSHOT
+    min-requirement: 50
+    max-requirement: 100
+    objects:
+      - AK-47
+    material: PAPER
+    amount: 1
+    name: "&a&lHard Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eDamage %amount% using AK-47: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  RIDE_QAV_MISSION:
+    title: "&aDamager"
+    category: HARD
+    type: RIDE_QAV
+    min-requirement: 50
+    max-requirement: 100
+    material: PAPER
+    amount: 1
+    name: "&a&lHard Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eRide %amount% using vehicles: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  TAME_MISSION:
+    title: "&aTamer"
+    category: EASY
+    type: TAME
+    min-requirement: 3
+    max-requirement: 5
+    objects:
+      - HORSE
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eTame %amount% horses: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  INTERACT_ENTITY_MISSION:
+    title: "&aInteract Entity"
+    category: EASY
+    type: INTERACT_ENTITY
+    min-requirement: 3
+    max-requirement: 5
+    objects:
+      - VILLAGER
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eInteract %amount% villagers: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  HORSE_JUMP_MISSION:
+    title: "&aHorse Jump"
+    category: NORMAL
+    type: HORSE_JUMP
+    min-requirement: 3
+    max-requirement: 5
+    material: PAPER
+    amount: 1
+    name: "&a&lNormal Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eHorse Jump %amount% times: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  EXP_GAIN_MISSION:
+    title: "&aExp Gain"
+    category: EASY
+    type: EXP_GAIN
+    min-requirement: 100
+    max-requirement: 500
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eGain %amount% experience: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  DEATH_MISSION:
+    title: "&aDeath"
+    category: EASY
+    type: DEATH
+    min-requirement: 3
+    max-requirement: 5
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eDie %amount% times: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  BUCKET_FILL_MISSION:
+    title: "&aBucket Fill"
+    category: EASY
+    type: BUCKET_FILL
+    min-requirement: 3
+    max-requirement: 5
+    objects:
+      - WATER
+      - LAVA
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eFill %amount% buckets: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  BUCKET_EMPTY_MISSION:
+    title: "&aBucket Empty"
+    category: EASY
+    type: BUCKET_EMPTY
+    min-requirement: 3
+    max-requirement: 5
+    objects:
+      - WATER
+      - LAVA
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eEmpty %amount% buckets: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  BREED_MISSION:
+    title: "&aBreed"
+    category: EASY
+    type: BREED
+    min-requirement: 3
+    max-requirement: 5
+    objects:
+      - PIG
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eBreed %amount% pigs: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  DAMAGE_WM_MISSION:
+    title: "&aDamage WM"
+    category: EASY
+    type: DAMAGE_WM
+    min-requirement: 100
+    max-requirement: 500
+    objects:
+      - AK_47
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eDamage %amount% using ak-47: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
+  BREWERY_MISSION:
+    title: "&aBrewery"
+    category: EASY
+    type: BREWERY
+    min-requirement: 10
+    max-requirement: 50
+    material: PAPER
+    amount: 1
+    name: "&a&lEasy Mission"
+    lore:
+      - "&fComplete the mission to"
+      - "&fearn a reward."
+      - "&fRight click the item to advance."
+      - ""
+      - "&6&lObjective:"
+      - "&f■ &eDrink %amount% alcohol: %progress%"
+    rewards:
+      - "say You won! %player_name%"
+    disabled-worlds:
+      - world_nether
