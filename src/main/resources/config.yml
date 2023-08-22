@@ -8,6 +8,7 @@ messages:
   reloaded: "&aMortis Missions Reloaded"
   give-usage: "&cUsage: /missions give <player_name> <mission-id>"
   random-usage: "&cUsage: /missions random <player_name>"
+  mission-not-found: "&cCould not find any mission"
 
 # Mission Types
 # COLLECT - requires material type objects

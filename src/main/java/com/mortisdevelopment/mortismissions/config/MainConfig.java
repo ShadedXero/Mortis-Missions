@@ -130,7 +130,7 @@ public class MainConfig extends Config {
                 if (!mission.getCategory().equalsIgnoreCase(id)) {
                     continue;
                 }
-                missionIds.add(id);
+                missionIds.add(mission.getId());
             }
             MissionCategory category = new MissionCategory(id, missionIds);
             configManager.getManager().getMissionManager().getCategories().addEntry(category, chance);
